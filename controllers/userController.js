@@ -12,29 +12,29 @@ const UserController = {
         }
     },
 
-    // Get a single user by _id and populate thoughts and friends
-    async getUserById(req, res) {
-        // GET
-        // Logic to get a single user by _id and populate thoughts and friends
-    },
+    // // Get a single user by _id and populate thoughts and friends
+    // async getUserById(req, res) {
+    //     // GET
+    //     // Logic to get a single user by _id and populate thoughts and friends
+    // },
 
-    // Create a new user
-    async createUser(req, res) {
-        // POST
-        // Logic for creating a new user
-    },
+    // // Create a new user
+    // async createUser(req, res) {
+    //     // POST
+    //     // Logic for creating a new user
+    // },
 
-    // Update a user by _id
-    async updateUser(req, res) {
-        // PUT
-        // Logic to update a single user by _id
-    },
+    // // Update a user by _id
+    // async updateUser(req, res) {
+    //     // PUT
+    //     // Logic to update a single user by _id
+    // },
 
-    // Delete a user by _id
-    async deleteUser(req, res) {
-        // DELETE
-        // Logic to delete a single user by _id
-    },
+    // // Delete a user by _id
+    // async deleteUser(req, res) {
+    //     // DELETE
+    //     // Logic to delete a single user by _id
+    // },
 };
 
 module.exports = UserController;
