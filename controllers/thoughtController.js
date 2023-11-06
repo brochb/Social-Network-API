@@ -1,7 +1,7 @@
-const { Thought } = require('../models/Thought'); // Import the Thought model
+const { Thought } = require('../models/Thought');
 
-// Get all thoughts
 const ThoughtController = {
+    // Get all Thoughts
     async getThoughts(req, res) {
         try {
             const thoughts = await Thought.find();
@@ -12,41 +12,63 @@ const ThoughtController = {
         }
     },
 
-    // // Get a single thought by _id
-    // async getThoughtById(req, res) {
-    //     // GET
-    //     // Logic to get a single thought by _id
-    // },
+    // Get a single thought by _id
+    async getThoughtById(req, res) {
+        try {
+            const thoughtId = req.params.thoughtId;
+            const thought = await Thought.findById(thoughtId);
+            if (!thought) {
+                return res.status(404).json({ message: 'Thought not found' });
+            }
+            res.json(thought);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 
-    // // Create a new thought
-    // async createThought(req, res) {
-    //     // POST
-    //     // Logic to create a new thought
-    // },
+    // Create a new Thought
+    async createThought(req, res) {
+        try {
+            const thoughtData = req.body;
+            const newThought = await Thought.create(thoughtData);
+            res.json(newThought);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 
-    // // Update a thought by _id
-    // async updateThought(req, res) {
-    //     // PUT
-    //     // Logic to update a single thought by _id
-    // },
+    // Update a single Thought by _id
+    async updateThought(req, res) {
+        try {
+            const thoughtId = req.params.thoughtId;
+            const updatedData = req.body;
+            const updatedThought = await Thought.findByIdAndUpdate(thoughtId, updatedData, { new: true });
+            if (!updatedThought) {
+                return res.status(404).json({ message: 'Thought not found' });
+            }
+            res.json(updatedThought);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 
-    // // Delete a thought by _id
-    // async deleteThought(req, res) {
-    //     // DELETE
-    //     // Implement logic to delete a thought by _id
-    // },
-
-    // // Create a reaction for a thought
-    // async createReaction(req, res) {
-    //     // POST :ID
-    //     // Implement logic to create a reaction for a thought
-    // },
-
-    // // Remove a reaction by reactionId from a thought
-    // async removeReaction(req, res) {
-    //     // DELETE :ID
-    //     // Implement logic to remove a reaction by reactionId from a thought
-    // },
+    // Delete a single Thought by _id
+    async deleteThought(req, res) {
+        try {
+            const thoughtId = req.params.thoughtId;
+            const deletedThought = await Thought.findByIdAndRemove(thoughtId);
+            if (!deletedThought) {
+                return res.status(404).json({ message: 'Thought not found' });
+            }
+            res.json({ message: 'Thought removed' });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 };
 
 module.exports = ThoughtController;

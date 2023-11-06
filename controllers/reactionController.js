@@ -1,50 +1,74 @@
 const { Reaction } = require('../models/Reaction');
 
 const ReactionController = {
-    async getReactions(req,res) {
+    // Get all Reactions
+    async getReactions(req, res) {
         try {
             const reactions = await Reaction.find();
             res.json(reactions);
         } catch (err) {
-            console.error(err)
+            console.error(err);
             res.status(500).json(err);
         }
     },
-    
-    // async getReactionById(req, res) {
 
-    //     // GET
-    //     // Logic to get a single reaction by _id
-    // },
+    // Get a single Reaction by _id
+    async getReactionById(req, res) {
+        try {
+            const reactionId = req.params.reactionId;
+            const reaction = await Reaction.findById(reactionId);
+            if (!reaction) {
+                return res.status(404).json({ message: 'Reaction not found' });
+            }
+            res.json(reaction);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 
-    // async createReaction(req, res) {
-    //     // POST
-    //     // Logic to create a new reaction
-    // },
+    // Create a new Reaction
+    async createReaction(req, res) {
+        try {
+            const reactionData = req.body;
+            const newReaction = await Reaction.create(reactionData);
+            res.json(newReaction);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 
-    // async updateReaction(req, res) {
-    //     // PUT
-    //     // Logic to update a single reaction by _id
-    // },
+    // Update a single Reaction by _id
+    async updateReaction(req, res) {
+        try {
+            const reactionId = req.params.reactionId;
+            const updatedData = req.body;
+            const updatedReaction = await Reaction.findByIdAndUpdate(reactionId, updatedData, { new: true });
+            if (!updatedReaction) {
+                return res.status(404).json({ message: 'Reaction not found' });
+            }
+            res.json(updatedReaction);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 
-    // async deleteReaction(req, res) {
-    //     try {
-    //         const { reactionId } = req.params;
-
-    //         // Implement logic to find and remove the reaction by reactionId
-    //         // Example:
-    //         const removedReaction = await Reaction.findByIdAndRemove(reactionId);
-
-    //         if (!removedReaction) {
-    //             return res.status(404).json({ message: 'Reaction not found' });
-    //         }
-
-    //         res.json({ message: 'Reaction removed' });
-    //     } catch (err) {
-    //         console.error(err);
-    //         res.status(500).json(err);
-    //     }
-    // },
+    // Delete a single Reaction by _id
+    async deleteReaction(req, res) {
+        try {
+            const reactionId = req.params.reactionId;
+            const removedReaction = await Reaction.findByIdAndRemove(reactionId);
+            if (!removedReaction) {
+                return res.status(404).json({ message: 'Reaction not found' });
+            }
+            res.json({ message: 'Reaction removed' });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
 };
 
 module.exports = ReactionController;

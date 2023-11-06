@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-mongoose.connect('mongodb://localhost/social-media-DB', {
+mongoose.connect('mongodb+srv://brochbaltzer:poop101@cluster0.e3iodbb.mongodb.net/social-media-DB', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
