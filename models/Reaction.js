@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const reactionSchema = new Schema({
-    reactionId: mongoose.Schema.Types.ObjectId,
+    reactionId: Schema.Types.ObjectId,
     reactionBody: {
         type: String,
         required: true,
