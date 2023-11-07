@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const reactionSchema = new mongoose.Schema({
+const reactionSchema = new Schema({
     reactionId: mongoose.Schema.Types.ObjectId,
     reactionBody: {
         type: String,
@@ -16,8 +16,16 @@ const reactionSchema = new mongoose.Schema({
         default: Date.now,
         get: (createdAt) => dateFormat(createdAt),
     },
-});
+},
+    {
+        toJSON: {
+            virtuals: true,
 
-const Reaction = mongoose.model('Reaction', reactionSchema);
+        },
+        id: false,
+    }
+);
+
+const Reaction = model('Reaction', reactionSchema);
 
 module.exports = Reaction;
