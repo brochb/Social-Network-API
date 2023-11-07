@@ -1,8 +1,8 @@
 const { Reaction } = require('../models/Reaction');
 
-const ReactionController = {
+module.exports = {
     // Get all Reactions
-    async getReactions(req, res) {
+    getReactions: async (req, res) => {
         try {
             const reactions = await Reaction.find();
             res.json(reactions);
@@ -13,7 +13,7 @@ const ReactionController = {
     },
 
     // Get a single Reaction by _id
-    async getReactionById(req, res) {
+    getReactionById: async (req, res) => {
         try {
             const reactionId = req.params.reactionId;
             const reaction = await Reaction.findById(reactionId);
@@ -28,7 +28,7 @@ const ReactionController = {
     },
 
     // Create a new Reaction
-    async createReaction(req, res) {
+    createReaction: async (req, res)  => {
         try {
             const reactionData = req.body;
             const newReaction = await Reaction.create(reactionData);
@@ -40,7 +40,7 @@ const ReactionController = {
     },
 
     // Update a single Reaction by _id
-    async updateReaction(req, res) {
+    updateReaction: async (req, res) => {
         try {
             const reactionId = req.params.reactionId;
             const updatedData = req.body;
@@ -56,7 +56,7 @@ const ReactionController = {
     },
 
     // Delete a single Reaction by _id
-    async deleteReaction(req, res) {
+    deleteReaction: async (req, res) => {
         try {
             const reactionId = req.params.reactionId;
             const removedReaction = await Reaction.findByIdAndRemove(reactionId);
@@ -70,5 +70,3 @@ const ReactionController = {
         }
     },
 };
-
-module.exports = ReactionController;

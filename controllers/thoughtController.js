@@ -1,8 +1,8 @@
 const { Thought } = require('../models/Thought');
 
-const ThoughtController = {
+module.exports = {
     // Get all Thoughts
-    async getThoughts(req, res) {
+    getThoughts: async (req, res) => {
         try {
             const thoughts = await Thought.find();
             res.json(thoughts);
@@ -13,7 +13,7 @@ const ThoughtController = {
     },
 
     // Get a single thought by _id
-    async getThoughtById(req, res) {
+    getThoughtById: async (req, res) => {
         try {
             const thoughtId = req.params.thoughtId;
             const thought = await Thought.findById(thoughtId);
@@ -28,7 +28,7 @@ const ThoughtController = {
     },
 
     // Create a new Thought
-    async createThought(req, res) {
+    createThought: async (req, res) => {
         try {
             const thoughtData = req.body;
             const newThought = await Thought.create(thoughtData);
@@ -40,7 +40,7 @@ const ThoughtController = {
     },
 
     // Update a single Thought by _id
-    async updateThought(req, res) {
+    updateThought: async (req, res) => {
         try {
             const thoughtId = req.params.thoughtId;
             const updatedData = req.body;
@@ -56,7 +56,7 @@ const ThoughtController = {
     },
 
     // Delete a single Thought by _id
-    async deleteThought(req, res) {
+    deleteThought: async (req, res) => {
         try {
             const thoughtId = req.params.thoughtId;
             const deletedThought = await Thought.findByIdAndRemove(thoughtId);
@@ -70,5 +70,3 @@ const ThoughtController = {
         }
     },
 };
-
-module.exports = ThoughtController;

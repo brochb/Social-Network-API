@@ -1,8 +1,8 @@
 const { User } = require('../models/User');
 
-const UserController = {
+module.exports = {
     // Get all users
-    async getUsers(req, res) {
+    getUsers: async (req, res) => {
         try {
             const users = await User.find();
             res.json(users);
@@ -13,7 +13,7 @@ const UserController = {
     },
 
     // Get a single user by _id and populate thoughts and friends
-    async getUserById(req, res) {
+    getUserById: async (req, res) => {
         try {
             const userId = req.params.userId;
             const user = await User.findById(userId)
@@ -33,7 +33,7 @@ const UserController = {
 
 
     // Create a new user
-    async createUser(req, res) {
+    createUser: async (req, res) => {
         try {
             const userData = req.body;
             const newUser = await User.create(userData);
@@ -45,7 +45,7 @@ const UserController = {
     },
 
     // Update a user by _id
-    async updateUser(req, res) {
+    updateUser: async (req, res) => {
         try {
             const userId = req.params.userId;
             const updatedData = req.body;
@@ -63,7 +63,7 @@ const UserController = {
     },
     
     // Delete a user by _id
-    async deleteUser(req, res) {
+    deleteUser: async (req, res) => {
         try {
             const userId = req.params.userId;
             const deletedUser = await User.findByIdAndRemove(userId);
@@ -79,5 +79,3 @@ const UserController = {
         }
     }
 };
-
-module.exports = UserController;

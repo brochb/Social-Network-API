@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { Reaction } = require('../models/Reaction');
 
 const reactionData = [
