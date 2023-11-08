@@ -1,9 +1,8 @@
 const connection = require('../config/connection');
 const { User, Thought, Reaction } = require('../models');
-const getUsers = require('./user-seeds');
-const getThoughts = require('./thought-seeds');
-const getReactions = require('./reaction-seeds');
-
+const seedUser = require('./user-seeds');
+const seedThoughts = require('./thought-seeds');
+const seedReactions = require('./reaction-seeds');
 
 console.time('seeding');
 
@@ -12,26 +11,32 @@ connection.on('error', (err) => {
 });
 
 connection.once('open', async () => {
-  console.log('Connected to MongoDB')
-  let userCheck = await connection.db.listCollections({
-    name: 'users'
-  }).toArray();
-  if (userCheck.length) {
-    await connection.dropCollection('users');
-  }
-  
-  let thoughtCheck = await connection.db.listCollections({
-    name: 'thoughts'
-  }).toArray();
-  if (thoughtCheck.length) {
-    await connection.dropCollection('thoughts');
-  }
+  console.log('Connected to MongoDB');
+  try {
+    console.log('Deleting existing data...');
+    await User.deleteMany({});
+    await Thought.deleteMany({});
+    await Reaction.deleteMany({});
+    console.log('Data successfully deleted...');
 
-  let reactionCheck = await connection.db.listCollections({
-    name: 'reactions'
-  }).toArray();
-  if (reactionCheck.length) {
-    await connection.dropCollection('reactions')
-  }
+    const users = await seedUser();
+    console.log('User Data: ', users);
 
+    for (const user of users) {
+      const thoughtData = await seedThoughts(user._id);
+      console.log('Thought Data for User', user.username + ':', thoughtData);
+      await Thought.insertMany(thoughtData);
+
+      const reactionData = await seedReactions(user._id);
+      console.log('Reaction Data for User', user.username + ':', reactionData);
+      await Reaction.insertMany(reactionData);
+    }
+
+    console.log('Data seeded successfully');
+  } catch (err) {
+    console.error('Error seeding data:', err);
+  } finally {
+    console.timeEnd('seeding');
+    connection.close();
+  }
 });

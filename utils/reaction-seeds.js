@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Reaction } = require('../models/Reaction');
+const Reaction = require('../models/Reaction');
 
 const reactionData = [
     {
@@ -19,6 +19,13 @@ const reactionData = [
     },
 ];
 
-const seedReactions = () => Reaction.insertMany(reactionData);
+async function seedReactions() {
+    try {
+        const result = await Reaction.insertMany(reactionData);
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 module.exports = seedReactions;

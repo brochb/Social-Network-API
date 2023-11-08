@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { User } = require('../models/User');
+const User = require('../models/User');
 
 const userData = [
     {
@@ -22,6 +22,13 @@ const userData = [
     },
 ];
 
-const seedUsers = () => User.insertMany(userData);
+async function seedUsers() {
+    try {
+        const result = await User.insertMany(userData);
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 module.exports = seedUsers;
