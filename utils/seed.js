@@ -23,11 +23,11 @@ connection.once('open', async () => {
     console.log('User Data: ', users);
 
     for (const user of users) {
-      const thoughtData = await seedThoughts(user._id);
+      const thoughtData = await seedThoughts();
       console.log('Thought Data for User', user.username + ':', thoughtData);
       await Thought.insertMany(thoughtData);
 
-      const reactionData = await seedReactions(user._id);
+      const reactionData = await seedReactions();
       console.log('Reaction Data for User', user.username + ':', reactionData);
       await Reaction.insertMany(reactionData);
     }

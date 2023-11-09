@@ -10,7 +10,8 @@ const reactionSchema = new Schema({
     },
     username: {
         type: String,
-        required: true,
+        unique: false,
+        default: 'anon',
     },
     createdAt: {
         type: Date,
