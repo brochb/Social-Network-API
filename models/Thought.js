@@ -42,5 +42,6 @@ const thoughtSchema = new Schema(
 
 const Thought = model('Thought', thoughtSchema);
 
+// If you flip these two lines back and forth, the routes work but no seeds, and the other way the seeds work but not the routes.
 module.exports = Thought;
 module.exports = { Thought };

@@ -30,5 +30,6 @@ const reactionSchema = new Schema({
 
 const Reaction = model('Reaction', reactionSchema);
 
+// If you flip these two lines back and forth, the routes work but no seeds, and the other way the seeds work but not the routes.
 module.exports = Reaction;
 module.exports = { Reaction };
