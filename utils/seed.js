@@ -19,15 +19,18 @@ connection.once('open', async () => {
     await Reaction.deleteMany({});
     console.log('Data successfully deleted...');
 
-    const users = await seedUser();
-    console.log('User Data: ', users);
-
+    const userData = await seedUser();
+    console.log('Users seeded...')
+    console.log('-------------------------')
+    console.log('User Data: ', userData)
     const thoughtData = await seedThoughts();
-    await Thought
-
+    console.log('Thoughts seeded...')
+    console.log('-------------------------')
+    console.log('Thought Data: ', thoughtData)
     const reactionData = await seedReactions();
-    await Reaction
-
+    console.log('Reactions seeded...')
+    console.log('-------------------------')
+    console.log('Reaction Data: ', reactionData)
     console.log('Data seeded successfully');
   } catch (err) {
     console.error('Error seeding data:', err);
