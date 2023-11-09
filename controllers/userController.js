@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { User } = require('../models/User');
 
 module.exports = {
@@ -30,7 +31,6 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
 
     // Create a new user
     createUser: async (req, res) => {

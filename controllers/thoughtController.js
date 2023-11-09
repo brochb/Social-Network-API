@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { Thought } = require('../models/Thought');
 
 module.exports = {
