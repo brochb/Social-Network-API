@@ -22,15 +22,11 @@ connection.once('open', async () => {
     const users = await seedUser();
     console.log('User Data: ', users);
 
-    for (const user of users) {
       const thoughtData = await seedThoughts();
-      console.log('Thought Data for User', user.username + ':', thoughtData);
-      await Thought.insertMany(thoughtData);
+      await Thought
 
       const reactionData = await seedReactions();
-      console.log('Reaction Data for User', user.username + ':', reactionData);
-      await Reaction.insertMany(reactionData);
-    }
+      await Reaction
 
     console.log('Data seeded successfully');
   } catch (err) {
